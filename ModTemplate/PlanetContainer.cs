@@ -4,10 +4,6 @@ namespace WackyRotations
 {
     public class PlanetContainer
     {
-        //Static config stuff, because I can't find a way around this
-        public static float dbTimeToChange;
-        public static float dbMaxSpeed;
-
         //Setting stuff
         private float maxTimeToChange;
         private float maxSpeed;
@@ -21,15 +17,15 @@ namespace WackyRotations
         /**
          * Make a new planet container with the given planet
          */
-        public PlanetContainer(OWRigidbody body, float TimeToChange, float maxSpeed)
+        public PlanetContainer(OWRigidbody body, float maxSpeed, float timeToChange)
         {
             //Set provided things
             this.body = body;
-            this.maxTimeToChange = TimeToChange;
+            this.maxTimeToChange = timeToChange;
             this.maxSpeed = maxSpeed;
 
             //Set other variables
-            this.changeTimer = TimeToChange;
+            this.changeTimer = timeToChange;
             this.oldRotation = new Vector3(0, 0, 0);
             this.wantedRotation = new Vector3(0, 0, 0);
         }
@@ -92,31 +88,41 @@ namespace WackyRotations
          */
         public Vector3 MakeNewRotationTarget()
         {
-            //Randomly pick a direction
-            //Get a random number from 0-1 for each component
-            float wantedX = Random.Range(0f, 1f);
-            float wantedY = Random.Range(0f, 1f);
-            float wantedZ = Random.Range(0f, 1f);
+            //In case the max speed is 0
+            if (this.maxSpeed == 0)
+            {
+                return new Vector3(0, 0, 0);
+            }
 
-            //Randomly reverse the components
-            if (Random.Range(0f, 1f) < 0.5)
-                wantedX *= -1;
-            if (Random.Range(0f, 1f) < 0.5)
-                wantedY *= -1;
-            if (Random.Range(0f, 1f) < 0.5)
-                wantedZ *= -1;
+            //Max speed is not 0, want random rotation
+            else
+            {
+                //Randomly pick a direction
+                //Get a random number from 0-1 for each component
+                float wantedX = Random.Range(0f, 1f);
+                float wantedY = Random.Range(0f, 1f);
+                float wantedZ = Random.Range(0f, 1f);
 
-            //Actually make the target vector, good direction but bad speed
-            Vector3 rot = new Vector3(wantedX, wantedY, wantedZ);
+                //Randomly reverse the components
+                if (Random.Range(0f, 1f) < 0.5)
+                    wantedX *= -1;
+                if (Random.Range(0f, 1f) < 0.5)
+                    wantedY *= -1;
+                if (Random.Range(0f, 1f) < 0.5)
+                    wantedZ *= -1;
 
-            //Fix the vector so it goes at the max speed
-            //Ensure the magnitude is not 0
-            if (rot.magnitude == 0) //Set it to a hardcoded spin if it is
-                rot = new Vector3(this.maxSpeed, 0, 0);
-            else //Otherwise, adjust it
-                rot = rot * (this.maxSpeed/rot.magnitude);
+                //Actually make the target vector, good direction but bad speed
+                Vector3 rot = new Vector3(wantedX, wantedY, wantedZ);
 
-            return rot;
+                //Fix the vector so it goes at the max speed
+                //Ensure the magnitude is not 0
+                if (rot.magnitude == 0) //Set it to a hardcoded spin if it is
+                    rot = new Vector3(this.maxSpeed, 0, 0);
+                else //Otherwise, adjust it
+                    rot = rot * (this.maxSpeed / rot.magnitude);
+
+                return rot;
+            }
         }
 
         /**
@@ -124,6 +130,12 @@ namespace WackyRotations
          */
         public void ChangeRotation()
         {
+            float maxAccel;
+            if (this.maxSpeed == 0)
+                maxAccel = 0.3f;
+            else
+                maxAccel = this.maxSpeed;
+
             //Figure out the vector to move on to go right there
             Vector3 snapVector = this.wantedRotation - this.body.GetAngularVelocity();
 
@@ -132,7 +144,7 @@ namespace WackyRotations
             Vector3 changeVector = (this.wantedRotation - this.oldRotation);
             //Correct the magnitude
             if(changeVector.magnitude != 0)
-                changeVector = changeVector * (this.maxSpeed / changeVector.magnitude) * Time.deltaTime;
+                changeVector = changeVector * (maxAccel / changeVector.magnitude) * Time.deltaTime;
 
             //Check if the change vector is greater than the snap
             if (snapVector.magnitude < changeVector.magnitude) //Override it if it is
