@@ -8,11 +8,8 @@ the rotational behaviour of the Outer Wilds planets, moon and comet. This mod is
 Specifically, this mod allows the planets to spin in any direction with a speed specified by the player. Additionally, the planets can randomly change spin directions, with the time between changes also
 being controlled by the player.
 
-# Settings
-Each body that can be manipulated has the following settings:<br />
-* **Rotation Speed** - The speed with which the body will rotate, in rotations/sec.<br />
-* **TTC** - The time (in seconds) between rotation changes.<br />
-The bodies that can be manipulated are:
+# Bodies
+Most of the planetary bodies can be manipulated with this mod. Specifically, the following bodies can be controlled:
 * Ash Twin<br />
 * Ember Twin<br />
 * Timber Hearth<br />
@@ -22,3 +19,8 @@ The bodies that can be manipulated are:
 * Giant's Deep<br />
 * Dark Bramble<br />
 * The Interloper
+
+# Settings
+Each body that can be manipulated has the following settings:<br />
+* **Rotation Speed** - The speed with which the body will rotate, in rotations/sec.<br />
+* **TTC** - The time (in seconds) between rotation changes.<br />
