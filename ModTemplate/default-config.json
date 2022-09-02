@@ -1,3 +1,15 @@
 {
-  "enabled": true
+  "enabled": true,
+  "settings": {
+    "maxSpeed": {
+      "type": "number",
+      "value": 0.3,
+      "title": "Rotation Speed"
+    },
+    "timeToChange": {
+      "type": "number",
+      "value": 5,
+      "title": "Time Between Rotation Changes"
+    }
+  }
 }
