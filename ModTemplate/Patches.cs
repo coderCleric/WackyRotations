@@ -6,25 +6,14 @@ namespace WackyRotations
 {
     public class Patches : MonoBehaviour
     {
-        public static OWRigidbody DBBody = null;
-
         /**
          * Retrieve the rigidbody of DB
          */
         public static void DBOverride()
         {
-            //Find the initial motions
-            InitialMotion[] motions = FindObjectsOfType<InitialMotion>();
+            OWRigidbody dbbody = GameObject.Find("DarkBramble_Body").GetComponent<OWRigidbody>();
 
-            //Check each to see if it's DB
-            foreach (InitialMotion i in motions)
-            {
-                if (i.gameObject.name.Equals("DarkBramble_Body"))
-                {
-                    DBBody = i.gameObject.GetComponent<OWRigidbody>();
-                    return;
-                }
-            }
+            WackyRotations.dbcontainer = new PlanetContainer(dbbody, PlanetContainer.dbTimeToChange, PlanetContainer.dbMaxSpeed);
         }
     }
 }

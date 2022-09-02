@@ -4,14 +4,10 @@ using UnityEngine;
 
 namespace WackyRotations
 {
-    public class ModTemplate : ModBehaviour
+    public class WackyRotations : ModBehaviour
     {
-        private float changeTimer;
-        private float startTime;
-        private float wantedX;
-        private float wantedY;
-        private float wantedZ;
-        private float maxSpeed = 0.3f;
+        public static PlanetContainer dbcontainer = null;
+        public static WackyRotations instance;
 
         /**
          * On start, patch a method and set the timer up
@@ -28,14 +24,7 @@ namespace WackyRotations
                 typeof(Patches),
                 nameof(Patches.DBOverride));
 
-            //Set the timer's initial time
-            this.startTime = 5;
-            this.changeTimer = startTime;
-
-            //Set the initial x, y, and z
-            this.wantedX = 0;
-            this.wantedY = 0;
-            this.wantedZ = 0;
+            instance = this;
         }
 
         /**
@@ -43,95 +32,15 @@ namespace WackyRotations
          */
         private void Update()
         {
-            //Check to make sure we have an initial motion
-            if (Patches.DBBody == null)
-                return;
-
-            //Reduce the timer
-            this.changeTimer -= Time.deltaTime;
-
-            //Randomize the velocity when the timer goes off
-            if (this.changeTimer <= 0)
+            //Double check that the planet exists
+            if (dbcontainer != null)
             {
-                //Randomly set the new motion targets
-                //Get a random number from 0-1
-                this.wantedX = Random.Range(0f, 1f);
-                this.wantedY = Random.Range(0f, 1f);
-                this.wantedZ = Random.Range(0f, 1f);
+                //Updates db's rotation
+                dbcontainer.UpdateRotationChange();
 
-                //Add them and convert each to a percentage, then to a speed target
-                float sum = this.wantedX + this.wantedY + this.wantedZ;
-                this.wantedX = (this.wantedX / sum) * this.maxSpeed;
-                this.wantedY = (this.wantedY / sum) * this.maxSpeed;
-                this.wantedZ = (this.wantedZ / sum) * this.maxSpeed;
-
-                //Randomly reverse the speed targets
-                if (Random.Range(0f, 1f) < 0.5)
-                    this.wantedX *= -1;
-                if (Random.Range(0f, 1f) < 0.5)
-                    this.wantedY *= -1;
-                if (Random.Range(0f, 1f) < 0.5)
-                    this.wantedZ *= -1;
-
-                //Reset the timer
-                this.changeTimer += startTime;
+                //Move to the desired axis
+                dbcontainer.ChangeRotation();
             }
-
-            //Move to the desired axis
-            this.ChangeAxis();
-        }
-
-        /**
-         * Gradually moves the rotation axis to the new one
-         */
-        private void ChangeAxis()
-        {
-            //Figure out how far to move per second
-            float maxRate = this.maxSpeed / 3;
-            //Calculate how much to change the x
-            float xSpeed = Patches.DBBody.GetAngularVelocity().x;
-            float xChange;
-            if (this.wantedX > xSpeed)
-            {
-                xChange = Mathf.Min(Mathf.Abs(this.wantedX - xSpeed), maxRate);
-                xChange *= Time.deltaTime;
-            }
-            else
-            {
-                xChange = Mathf.Min(Mathf.Abs(this.wantedX - xSpeed), maxRate) * -1;
-                xChange *= Time.deltaTime;
-            }
-
-            //Then the y
-            float ySpeed = Patches.DBBody.GetAngularVelocity().y;
-            float yChange;
-            if (this.wantedY > ySpeed)
-            {
-                yChange = Mathf.Min(Mathf.Abs(this.wantedY - ySpeed), maxRate);
-                yChange *= Time.deltaTime;
-            }
-            else
-            {
-                yChange = Mathf.Min(Mathf.Abs(this.wantedY - ySpeed), maxRate) * -1;
-                yChange *= Time.deltaTime;
-            }
-
-            //and the z
-            float zSpeed = Patches.DBBody.GetAngularVelocity().z;
-            float zChange;
-            if (this.wantedZ > zSpeed)
-            {
-                zChange = Mathf.Min(Mathf.Abs(this.wantedZ - zSpeed), maxRate);
-                zChange *= Time.deltaTime;
-            }
-            else
-            {
-                zChange = Mathf.Min(Mathf.Abs(this.wantedZ - zSpeed), maxRate) * -1;
-                zChange *= Time.deltaTime;
-            }
-
-            //Apply the motions
-            Patches.DBBody.AddAngularVelocityChange(new Vector3(xChange, yChange, zChange));
         }
 
         /**
@@ -139,8 +48,19 @@ namespace WackyRotations
          */
         public override void Configure(IModConfig config)
         {
-            this.maxSpeed = config.GetSettingsValue<float>("maxSpeed");
-            this.startTime = config.GetSettingsValue<float>("timeToChange");
+            //Dark Bramble
+            PlanetContainer.dbMaxSpeed = config.GetSettingsValue<float>("maxSpeed");
+            PlanetContainer.dbTimeToChange = config.GetSettingsValue<float>("timeToChange");
+            if(dbcontainer != null)
+            {
+                dbcontainer.SetMaxSpeed(PlanetContainer.dbMaxSpeed);
+                dbcontainer.SetTimeToChange(PlanetContainer.dbTimeToChange);
+            }
+        }
+
+        public static void debugPrint(string s)
+        {
+            instance.ModHelper.Console.WriteLine(s);
         }
     }
 }
