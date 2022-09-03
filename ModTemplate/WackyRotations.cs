@@ -12,7 +12,6 @@ namespace WackyRotations
     public class WackyRotations : ModBehaviour
     {
         public static PlanetContainer[] planetContainers = new PlanetContainer[System.Enum.GetValues(typeof(PlanetNames)).Length];
-        public static WackyRotations instance;
 
         /**
          * On start, patch a method and set the timer up
@@ -28,14 +27,12 @@ namespace WackyRotations
                 "Awake",
                 typeof(Patches),
                 nameof(Patches.GrabPlanet));
-
-            instance = this;
         }
 
         /**
          * Every frame, tick down the timer, change the velocity
          */
-        private void Update()
+        private void FixedUpdate()
         {
             //Loop through each planet container
             foreach(PlanetContainer i in planetContainers)
@@ -92,11 +89,6 @@ namespace WackyRotations
             //Interloper
             ConfigData.UpdateMaxSpeed(PlanetNames.INTERLOPER, 2 * config.GetSettingsValue<float>("interloperMaxSpeed"));
             ConfigData.UpdateTimeToChange(PlanetNames.INTERLOPER, config.GetSettingsValue<float>("interloperTTC"));
-        }
-
-        public static void debugPrint(string s)
-        {
-            instance.ModHelper.Console.WriteLine(s);
         }
     }
 }

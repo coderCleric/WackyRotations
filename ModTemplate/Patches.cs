@@ -1,6 +1,4 @@
-﻿using OWML.Common;
-using OWML.ModHelper;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace WackyRotations
 {

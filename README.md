@@ -24,3 +24,7 @@ Most of the planetary bodies can be manipulated with this mod. Specifically, the
 Each body that can be manipulated has the following settings:<br />
 * **Rotation Speed** - The speed with which the body will rotate, in rotations/sec.<br />
 * **TTC** - The time (in seconds) between rotation changes.<br />
+
+# Bugs
+I'm not sure what (if anything) it actually affects, but while playing the mod you will likely have many console messages pop up, stating that 'Rotation quaternions must be unit length'. I do not know
+what this means, but since this is already a goofy mod, I'm not super concerned. That said, do let me know if you have any ideas on how to fix it, I go by coderCleric on the modding discord.

@@ -115,11 +115,8 @@ namespace WackyRotations
                 Vector3 rot = new Vector3(wantedX, wantedY, wantedZ);
 
                 //Fix the vector so it goes at the max speed
-                //Ensure the magnitude is not 0
-                if (rot.magnitude == 0) //Set it to a hardcoded spin if it is
-                    rot = new Vector3(this.maxSpeed, 0, 0);
-                else //Otherwise, adjust it
-                    rot = rot * (this.maxSpeed / rot.magnitude);
+                rot.Normalize();
+                rot *= this.maxSpeed;
 
                 return rot;
             }
@@ -130,6 +127,7 @@ namespace WackyRotations
          */
         public void ChangeRotation()
         {
+            //Figure out our acceleration mag
             float maxAccel;
             if (this.maxSpeed == 0)
                 maxAccel = 0.3f;
@@ -143,8 +141,8 @@ namespace WackyRotations
             //Set the direction up
             Vector3 changeVector = (this.wantedRotation - this.oldRotation);
             //Correct the magnitude
-            if(changeVector.magnitude != 0)
-                changeVector = changeVector * (maxAccel / changeVector.magnitude) * Time.deltaTime;
+            changeVector.Normalize();
+            changeVector *= maxAccel * Time.deltaTime;
 
             //Check if the change vector is greater than the snap
             if (snapVector.magnitude < changeVector.magnitude) //Override it if it is
