@@ -2,7 +2,7 @@
 
 # Wacky Rotations
 > Oh, Hatchling! Be careful out there, okay? The other travellers are reporting that planets have started acting weird, apparently they just sort of... spin in random directions? Yeah, I don't know
-> what that's about, but don't let the radio tower hit you on the way out or anything like that. Anyway, good luck!<br />
+> what that's about, just don't let the radio tower hit you on the way out or anything like that. Anyway, good luck!<br />
 <br />
 An absolutely stupid mod inspired by the wonderful tomfoolery I experienced while playing PacificEngines [Randomizer Mod](https://outerwildsmods.com/mods/randomizer/). Gives the player some control over
 the rotational behaviour of the Outer Wilds planets, moon and comet. This mod is not meant to be used in any serious manner, and it's incredibly easy to accidentally kill yourself with it.
