@@ -127,29 +127,32 @@ namespace WackyRotations
          */
         public void ChangeRotation()
         {
-            //Figure out our acceleration mag
-            float maxAccel;
-            if (this.maxSpeed == 0)
-                maxAccel = 0.3f;
-            else
-                maxAccel = this.maxSpeed;
+            //Only do stuff if we're off target
+            if (!(this.body.GetAngularVelocity() == this.wantedRotation)) {
+                //Figure out our acceleration mag
+                float maxAccel;
+                if (this.maxSpeed == 0)
+                    maxAccel = 0.3f;
+                else
+                    maxAccel = this.maxSpeed;
 
-            //Figure out the vector to move on to go right there
-            Vector3 snapVector = this.wantedRotation - this.body.GetAngularVelocity();
+                //Figure out the vector to move on to go right there
+                Vector3 snapVector = this.wantedRotation - this.body.GetAngularVelocity();
 
-            //Make the vector for the changed motion (accel = max speed)
-            //Set the direction up
-            Vector3 changeVector = (this.wantedRotation - this.oldRotation);
-            //Correct the magnitude
-            changeVector.Normalize();
-            changeVector *= maxAccel * Time.deltaTime;
+                //Make the vector for the changed motion (accel = max speed)
+                //Set the direction up
+                Vector3 changeVector = (this.wantedRotation - this.oldRotation);
+                //Correct the magnitude
+                changeVector.Normalize();
+                changeVector *= maxAccel * Time.deltaTime;
 
-            //Check if the change vector is greater than the snap
-            if (snapVector.magnitude < changeVector.magnitude) //Override it if it is
-                changeVector = snapVector;
+                //Check if the change vector is greater than the snap
+                if (snapVector.magnitude < changeVector.magnitude) //Override it if it is
+                    changeVector = snapVector;
 
-            //Apply the motion
-            this.body.SetAngularVelocity(this.body.GetAngularVelocity() + changeVector);
+                //Apply the motion
+                this.body.SetAngularVelocity(this.body.GetAngularVelocity() + changeVector);
+            }
         }
     }
 }
