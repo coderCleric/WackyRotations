@@ -1,103 +1,189 @@
 {
   "enabled": true,
   "settings": {
+    "General Settings": {
+      "type": "separator"
+    },
+    "generalMaxSpeed": {
+      "type": "number",
+      "value": 0,
+      "title": "Rotation Speed (Rot/s)"
+    },
+    "generalTTC": {
+      "type": "number",
+      "value": 5,
+      "title": "Time to Change"
+    },
+
+    "Ash Twin Settings": {
+      "type": "separator"
+    },
+    "ashUseGeneral": {
+      "type": "toggle",
+      "value": true,
+      "title": "Use General Settings"
+    },
     "ashMaxSpeed": {
       "type": "number",
       "value": 0,
-      "title": "Ash Twin Rotation Speed"
+      "title": "Rotation Speed (Rot/s)"
     },
     "ashTTC": {
       "type": "number",
       "value": 5,
-      "title": "Ash Twin TTC"
+      "title": "Time to Change"
     },
 
+    "Ember Twin Settings": {
+      "type": "separator"
+    },
+    "emberUseGeneral": {
+      "type": "toggle",
+      "value": true,
+      "title": "Use General Settings"
+    },
     "emberMaxSpeed": {
       "type": "number",
       "value": 0,
-      "title": "Ember Twin Rotation Speed"
+      "title": "Rotation Speed (Rot/s)"
     },
     "emberTTC": {
       "type": "number",
       "value": 5,
-      "title": "Ember Twin TTC"
+      "title": "Time to Change"
     },
 
+    "Timber Hearth Settings": {
+      "type": "separator"
+    },
+    "timberUseGeneral": {
+      "type": "toggle",
+      "value": true,
+      "title": "Use General Settings"
+    },
     "timberMaxSpeed": {
       "type": "number",
       "value": 0,
-      "title": "Timber Hearth Rotation Speed"
+      "title": "Rotation Speed (Rot/s)"
     },
     "timberTTC": {
       "type": "number",
       "value": 5,
-      "title": "Timber Hearth TTC"
+      "title": "Time to Change"
     },
 
+    "Attelrock Settings": {
+      "type": "separator"
+    },
+    "attlUseGeneral": {
+      "type": "toggle",
+      "value": true,
+      "title": "Use General Settings"
+    },
     "attlMaxSpeed": {
       "type": "number",
       "value": 0,
-      "title": "Attelrock Rotation Speed"
+      "title": "Rotation Speed (Rot/s)"
     },
     "attlTTC": {
       "type": "number",
       "value": 5,
-      "title": "Attelrock TTC"
+      "title": "Time to Change"
     },
 
+    "Brittle Hollow Settings": {
+      "type": "separator"
+    },
+    "brittleUseGeneral": {
+      "type": "toggle",
+      "value": true,
+      "title": "Use General Settings"
+    },
     "brittleMaxSpeed": {
       "type": "number",
       "value": 0,
-      "title": "Brittle Hollow Rotation Speed"
+      "title": "Rotation Speed (Rot/s)"
     },
     "brittleTTC": {
       "type": "number",
       "value": 5,
-      "title": "Brittle Hollow TTC"
+      "title": "Time to Change"
     },
 
+    "Hollow's Lantern Settings": {
+      "type": "separator"
+    },
+    "lanternUseGeneral": {
+      "type": "toggle",
+      "value": true,
+      "title": "Use General Settings"
+    },
     "lanternMaxSpeed": {
       "type": "number",
       "value": 0,
-      "title": "Hollow's Lantern Rotation Speed"
+      "title": "Rotation Speed (Rot/s)"
     },
     "lanternTTC": {
       "type": "number",
       "value": 5,
-      "title": "Hollow's Lantern TTC"
+      "title": "Time to Change"
     },
 
+    "Giant's Deep Settings": {
+      "type": "separator"
+    },
+    "deepUseGeneral": {
+      "type": "toggle",
+      "value": true,
+      "title": "Use General Settings"
+    },
     "deepMaxSpeed": {
       "type": "number",
       "value": 0,
-      "title": "Giant's Deep Rotation Speed"
+      "title": "Rotation Speed (Rot/s)"
     },
     "deepTTC": {
       "type": "number",
       "value": 5,
-      "title": "Giant's Deep TTC"
+      "title": "Time to Change"
     },
 
+    "Dark Bramble Settings": {
+      "type": "separator"
+    },
+    "brambleUseGeneral": {
+      "type": "toggle",
+      "value": true,
+      "title": "Use General Settings"
+    },
     "brambleMaxSpeed": {
       "type": "number",
       "value": 0,
-      "title": "Dark Bramble Rotation Speed"
+      "title": "Rotation Speed (Rot/s)"
     },
     "brambleTTC": {
       "type": "number",
       "value": 5,
-      "title": "Dark Bramble TTC"
+      "title": "Time to Change"
     },
 
+    "Interloper Settings": {
+      "type": "separator"
+    },
+    "interloperUseGeneral": {
+      "type": "toggle",
+      "value": true,
+      "title": "Use General Settings"
+    },
     "interloperMaxSpeed": {
       "type": "number",
       "value": 0,
-      "title": "Interloper Rotation Speed"
+      "title": "Rotation Speed (Rot/s)"
     },
     "interloperTTC": {
       "type": "number",
       "value": 5,
-      "title": "Interloper TTC"
+      "title": "Time to Change"
     }
   }
 }
